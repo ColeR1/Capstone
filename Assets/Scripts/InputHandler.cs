@@ -19,11 +19,7 @@ namespace LP.FDG.InputManager
             instance = this;
         }
 
-        // Update is called once per frame
-       private void Update()
-        {
-            
-        }
+
 
         public void HandleUnitMovement()
         {
@@ -41,22 +37,29 @@ namespace LP.FDG.InputManager
                     {
                         case 8: //Units Layer
                             //do smoething
-                            SelectUnit(hit.transform);
+                            SelectUnit(hit.transform, Input.GetKey(KeyCode.LeftShift));
                             break;
                         default: //if non of the above happens
                             //do something
+  
                             DeselectUnits();
                             break;
                     }
                 }
             }
+            if(Input.GetMouseButton(1))
+            {
+                DeselectUnits();
+            }
            
         }
 
-        private void SelectUnit(Transform unit)
+        private void SelectUnit(Transform unit, bool canMultiselect = false)
         {
-
-            DeselectUnits();
+            if(!canMultiselect)
+            {
+                DeselectUnits();
+            }
             selectedUnits.Add(unit);
             //lets set and obj on the unit called highlight
             unit.Find("Highlight").gameObject.SetActive(true);
