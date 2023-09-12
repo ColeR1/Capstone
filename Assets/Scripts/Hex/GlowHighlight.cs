@@ -6,7 +6,7 @@ public class GlowHighlight : MonoBehaviour
 {
     Dictionary<Renderer, Material[]> glowMaterialDictionary = new Dictionary<Renderer, Material[]>();
     Dictionary<Renderer, Material[]> originalMaterialDictionary = new Dictionary<Renderer, Material[]>();
-    Dictionary<Color, Material[]> cachedGlowMaterials = new Dictionary<Color, Material[]>();
+    Dictionary<Color, Material> cachedGlowMaterials = new Dictionary<Color, Material>();
 
     public Material glowMaterial;
 
@@ -18,11 +18,11 @@ public class GlowHighlight : MonoBehaviour
 
     private void PrepareMaterialDictionaries()
     {
-        foreach (Renderer renderer in GetComponentsInChildren<Renderer>());
+        foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
         {
-            Material[] originalMaterials = GetComponent<Renderer>().materials;
-            originalMaterialDictionary.Add(GetComponent<Renderer>(), originalMaterials);
-            Material[] newMaterials = new Material[GetComponent<Renderer>().materials.Length];
+            Material[] originalMaterials = renderer.materials;
+            originalMaterialDictionary.Add(renderer, originalMaterials);
+            Material[] newMaterials = new Material[renderer.materials.Length];
             for(int i = 0; i< originalMaterials.Length; i++)
             {
                 Material mat = null;
@@ -34,7 +34,7 @@ public class GlowHighlight : MonoBehaviour
                 }
                 newMaterials[i] = mat;
             }
-            glowMaterialDictionary.Add(GetComponent<Renderer>(), newMaterials);
+            glowMaterialDictionary.Add(renderer, newMaterials);
         }
     }
 
@@ -49,7 +49,7 @@ public class GlowHighlight : MonoBehaviour
         }
         else
         {
-            foreach(renderer renderer in originalMaterialDictionary.Keys)
+            foreach(Renderer renderer in originalMaterialDictionary.Keys)
             {
                 renderer.materials = originalMaterialDictionary[renderer];
             }

@@ -43,6 +43,6 @@ Material:
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     m_Colors:
-    - GlowColor: {r: 6.486663, g: 21.36125, b: 0, a: 0}
+    - GlowColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 0}
     - _Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
