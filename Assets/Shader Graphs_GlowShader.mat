@@ -26,12 +26,12 @@ Material:
     m_Ints: []
     m_Floats:
     - DynamicGlow: 1
-    - GlowPower: 1
+    - GlowPower: 2
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _GlowColor: {r: 0.9098039, g: 2.996078, b: 0, a: 0}
+    - _GlowColor: {r: 5.3403134, g: 5.3403134, b: 5.3403134, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3836547362516552990
 MonoBehaviour:

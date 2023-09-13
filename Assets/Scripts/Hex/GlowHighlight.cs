@@ -98,5 +98,5 @@ public class GlowHighlight : MonoBehaviour
             return;
         isGlowing = !state;
         ToggleGlow();
-    }
+    } 
 }
