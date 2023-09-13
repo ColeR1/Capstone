@@ -5,77 +5,81 @@ using System.Linq;
 
 public class GraphSearch
 {
-    public static BFSResult BFSGetRange(HexGrid hexGrid, Vector3Int startPoint, int movementPoints)
+     public static BFSResult BFSGetRange(HexGrid hexGrid, Vector3Int startPoint, int movementPoints)
     {
-        Disctionary<Vector3Int, Vector3Int?> visitedNodes = new Disctionary<Vector3Int, Vector3Int?>();
+        Dictionary<Vector3Int, Vector3Int?> visitedNodes = new Dictionary<Vector3Int, Vector3Int?>();
         Dictionary<Vector3Int, int> costSoFar = new Dictionary<Vector3Int, int>();
         Queue<Vector3Int> nodesToVisitQueue = new Queue<Vector3Int>();
 
         nodesToVisitQueue.Enqueue(startPoint);
-        costSoFar.Add(startPoint,0);
+        costSoFar.Add(startPoint, 0);
         visitedNodes.Add(startPoint, null);
 
-        while (nodesToVisitQueue.Count > 0 )
+        while (nodesToVisitQueue.Count > 0)
         {
             Vector3Int currentNode = nodesToVisitQueue.Dequeue();
-            foreach(Vector3Int neighborPosition in hexGrid.GetNeighboursFor(currentNode))
+            foreach (Vector3Int neighbourPosition in hexGrid.GetNeighboursFor(currentNode))
             {
-                if(hexGrid.GetTileAt(neighborPosition).IsObstacle())
+                if (hexGrid.GetTileAt(neighbourPosition).IsObstacle())
                     continue;
                 
-                int nodeCost = hexGrid.GetTileAt(neighborPosition).GetCost();
+                if(hexGrid.GetTileAt(neighbourPosition).IsWater())
+                    continue;
+
+                int nodeCost = hexGrid.GetTileAt(neighbourPosition).GetCost();
                 int currentCost = costSoFar[currentNode];
                 int newCost = currentCost + nodeCost;
 
-                if(newCost <= movementPoints)
+                if (newCost <= movementPoints)
                 {
-                    if(!visitedNodes.ContainsKey(neighborPosition))
+                    if (!visitedNodes.ContainsKey(neighbourPosition))
                     {
-                        visitedNodes[neighborPosition] = currentNode;
-                        costSoFar[neighborPosition] = newCost;
-                        nodesToVisitQueue.Enqueue(neighborPosition);
+                        visitedNodes[neighbourPosition] = currentNode;
+                        costSoFar[neighbourPosition] = newCost;
+                        nodesToVisitQueue.Enqueue(neighbourPosition);
                     }
-                    else if(costSoFar{neighborPosition} > newCost)
+                    else if (costSoFar[neighbourPosition] > newCost)
                     {
-                        costSoFar[neighborPosition] = newCost;
-                        visitedNodes[neighborPosition] = currentNode;
+                        costSoFar[neighbourPosition] = newCost;
+                        visitedNodes[neighbourPosition] = currentNode;
                     }
                 }
             }
         }
+        return new BFSResult { visitedNodesDict = visitedNodes };
     }
-    return new BSFResult{ vistiedNodesDict = visitedNodes};
-}
+    
 
- public static List<Vector3Int> GeneratePathBFS(Vector3Int destination, Disctionary<Vector3Int,Vector3Int?> vistiedNodesDict)
+    public static List<Vector3Int> GeneratePathBFS(Vector3Int current, Dictionary<Vector3Int, Vector3Int?> visitedNodesDict)
     {
         List<Vector3Int> path = new List<Vector3Int>();
         path.Add(current);
-        while (vistiedNodesDict[current] != null)
+        while (visitedNodesDict[current] != null)
         {
-            path.Add(vistiedNodesDict[current].Value);
-            current = vistiedNodesDict[current].Value;
+            path.Add(visitedNodesDict[current].Value);
+            current = visitedNodesDict[current].Value;
         }
         path.Reverse();
         return path.Skip(1).ToList();
     }
+}
 
-    public struct BSFResult
+public struct BFSResult
+{
+    public Dictionary<Vector3Int, Vector3Int?> visitedNodesDict;
+
+    public List<Vector3Int> GetPathTo(Vector3Int destination)
     {
-        public Dictionary<Vector3Int, Vector3Int?> vistiedNodesDict;
-
-        public List<Vector3Int> GetPathTo(Vector3Int destination)
-        {
-            if(vistiedNodesDict.ContainsKey(destination) == false)
-                return new List<Vector3Int>();
-            return GraphSearch.GeneratePathBFS(destination, vistiedNodesDict);
-        }
-
-        public bool IsHexPositionInRange(Vector3Int position)
-        {
-            return vistiedNodesDict.ContainsKey(position);
-        }
-
-        public IEnumerable<Vector3Int> GetRangePositions()
-            => vistiedNodesDict.Keys;
+        if (visitedNodesDict.ContainsKey(destination) == false)
+            return new List<Vector3Int>();
+        return GraphSearch.GeneratePathBFS(destination, visitedNodesDict);
     }
+
+    public bool IsHexPositionInRange(Vector3Int position)
+    {
+        return visitedNodesDict.ContainsKey(position);
+    }
+
+    public IEnumerable<Vector3Int> GetRangePositions()
+        => visitedNodesDict.Keys;
+}

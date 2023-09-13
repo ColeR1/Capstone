@@ -2,63 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 public class SelectionManager : MonoBehaviour
 {
-   [SerializeField]
-   private Camera mainCamera;
+    [SerializeField]
+    private Camera mainCamera;
 
-   public LayerMask selectionMask;
+    public LayerMask selectionMask;
 
-   public HexGrid hexGrid;
 
-    List<Vector3Int> neighbours = new List<Vector3Int>();
+    public UnityEvent<GameObject> OnUnitSelected;
+    public UnityEvent<GameObject> TerrainSelected;
 
-   private void Awake()
-   {
-    if(mainCamera == null)
-        mainCamera = Camera.main;
-   }
+    private void Awake()
+    {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+    }
 
-   public void HandleClick(Vector3 mousePosition)
-   {
+    public void HandleClick(Vector3 mousePosition)
+    {
         GameObject result;
-        if(FindTarget(mousePosition, out result))
+        if (FindTarget(mousePosition, out result))
         {
-            Hex selectedHex = result.GetComponent<Hex>();
-
-            selectedHex.DisableHighlight();
-            foreach (Vector3Int neighbour in neighbours)
+            if (UnitSelected(result))
             {
-                hexGrid.GetTileAt(neighbour).DisableHighlight();
+                OnUnitSelected?.Invoke(result);
             }
-
-            //neighbours = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
-            BFSResult bfsResult = GraphSearch.BFSGetRange(hexGrid, selectedHex.HexCoords, 20);
-            neighbours = new List<Vector3Int>(bfsResult.GetRangePositions());
-
-            foreach(Vector3Int neighbour in neighbours)
+            else
             {
-                 hexGrid.GetTileAt(neighbour).EnableHighlight();
-            }
-            Debug.Log($"Neighbours for {selectedHex.HexCoords} are:");
-            foreach (Vector3 neightbourPos in neighbours)
-            {
-                Debug.Log(neightbourPos);
+                TerrainSelected?.Invoke(result);
             }
         }
-   }
+    }
 
-   private bool FindTarget(Vector3 mousePosition, out GameObject result)
-   {
+    private bool UnitSelected(GameObject result)
+    {
+        return result.GetComponent<Unit>() != null;
+    }
+
+    private bool FindTarget(Vector3 mousePosition, out GameObject result)
+    {
         RaycastHit hit;
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-        if(Physics.Raycast(ray, out hit, selectionMask))
+        if (Physics.Raycast(ray, out hit, 100, selectionMask))
         {
             result = hit.collider.gameObject;
             return true;
         }
         result = null;
         return false;
-   }
+    }
 }

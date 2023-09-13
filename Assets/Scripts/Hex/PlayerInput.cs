@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class PlayerInput : MonoBehaviour
-{
+{  
     public UnityEvent<Vector3> PointerClick;
 
     void Update()
@@ -14,7 +14,7 @@ public class PlayerInput : MonoBehaviour
 
     private void DetectMouseClick()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Input.mousePosition;
             PointerClick?.Invoke(mousePos);

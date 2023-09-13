@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[SelectionBase]
 public class Hex : MonoBehaviour
 {
 
-    [SerializeField]
+   [SerializeField]
     private GlowHighlight highlight;
     private HexCoordinates hexCoordinates;
 
@@ -17,23 +18,28 @@ public class Hex : MonoBehaviour
 
     public int GetCost()
         => hexType switch
-    {
-        HexType.Difficult => 20,
-        HexType.Default => 10,
-        HexType.Road => 5,
-        _ => throw new Exception($"Hex of tpye {hexType} not supported")
-    };
+        {
+            HexType.Difficult => 20,
+            HexType.Default => 10,
+            HexType.Road => 5,
+            _ => throw new Exception($"Hex of type {hexType} not supported")
+        };
 
     public bool IsObstacle()
     {
         return this.hexType == HexType.Obstacle;
     }
 
-    private void Awake() {
+    public bool IsWater()
+    {
+        return this.hexType == HexType.Water;
+    }
+
+    private void Awake()
+    {
         hexCoordinates = GetComponent<HexCoordinates>();
         highlight = GetComponent<GlowHighlight>();
     }
-
     public void EnableHighlight()
     {
         highlight.ToggleGlow(true);
@@ -44,13 +50,24 @@ public class Hex : MonoBehaviour
         highlight.ToggleGlow(false);
     }
 
-    public enum HexType
+    internal void ResetHighlight()
     {
-        None,
-        Default,
-        Difficult,
-        Road,
-        Water,
-        Obstacle
+        highlight.ResetGlowHighlight();
+    }
+
+    internal void HighlightPath()
+    {
+        highlight.HighlightValidPath();
     }
 }
+
+public enum HexType
+{
+    None,
+    Default,
+    Difficult,
+    Road,
+    Water,
+    Obstacle
+}
+

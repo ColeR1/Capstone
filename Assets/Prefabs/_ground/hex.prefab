@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlight: {fileID: 6209192567445153078}
+  hexType: 1
 --- !u!114 &8905519027978237868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 399e3d380ec09e742916533d0b688a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowMaterial: {fileID: 2100000, guid: 9a96bda668840b748bd710a6514d8543, type: 2}
+  glowMaterial: {fileID: 2100000, guid: ed7b797401268fa4e902abf7e0779031, type: 2}
 --- !u!1001 &4423488106898578047
 PrefabInstance:
   m_ObjectHideFlags: 0
