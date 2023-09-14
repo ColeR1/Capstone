@@ -25,6 +25,8 @@ public class GraphSearch
                 
                 if(hexGrid.GetTileAt(neighbourPosition).IsWater())
                     continue;
+                if(hexGrid.GetTileAt(neighbourPosition).IsHouse())
+                    continue;
 
                 int nodeCost = hexGrid.GetTileAt(neighbourPosition).GetCost();
                 int currentCost = costSoFar[currentNode];

@@ -35,6 +35,11 @@ public class Hex : MonoBehaviour
         return this.hexType == HexType.Water;
     }
 
+    public bool IsHouse()
+    {
+        return this.hexType == HexType.House;
+    }
+
     private void Awake()
     {
         hexCoordinates = GetComponent<HexCoordinates>();
@@ -68,6 +73,7 @@ public enum HexType
     Difficult,
     Road,
     Water,
-    Obstacle
+    Obstacle,
+    House
 }
 
