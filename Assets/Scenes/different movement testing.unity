@@ -171,6 +171,7 @@ MonoBehaviour:
   maxGridSize: 10
   gridCellPrefab: {fileID: 5888078309555469312, guid: 581e2bf34d1312f4780954cafcd0d538, type: 3}
   mountainPrefab: {fileID: 8015631003135522634, guid: e0ecb8b1e8cc35347ac1dcc58054e221, type: 3}
+  newPrefab: {fileID: 189487708504715515, guid: c981cff84917f8049b13dcacab32d681, type: 3}
   borderBlockPrefab: {fileID: 6652523074585491639, guid: 876c0bef4707b7d4492850ef57db9f9f, type: 3}
   playerPrefab: {fileID: 6170825781326362122, guid: adacec6a3c516844fb50892524a24343, type: 3}
   movement: {fileID: 577773059147173408, guid: adacec6a3c516844fb50892524a24343, type: 3}
