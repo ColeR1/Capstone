@@ -8,6 +8,8 @@ TagManager:
   - PlayerUnit
   - EnemyUnit
   - Resource
+  - borderblock
+  - Enemy
   layers:
   - Default
   - TransparentFX
