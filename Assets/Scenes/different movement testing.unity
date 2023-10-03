@@ -167,14 +167,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23130810834704a49bbdef627fd36cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGridSize: 6
-  maxGridSize: 16
+  minGridSize: 51
+  maxGridSize: 106
   gridCellPrefab: {fileID: 5888078309555469312, guid: 581e2bf34d1312f4780954cafcd0d538, type: 3}
   mountainPrefab: {fileID: 8015631003135522634, guid: e0ecb8b1e8cc35347ac1dcc58054e221, type: 3}
   newPrefab: {fileID: 189487708504715515, guid: c981cff84917f8049b13dcacab32d681, type: 3}
+  housePrefab: {fileID: 226132457210731159, guid: 550b887982c3173449bf7e9ab8e5c018, type: 3}
   borderBlockPrefab: {fileID: 6652523074585491639, guid: 876c0bef4707b7d4492850ef57db9f9f, type: 3}
-  playerPrefab: {fileID: 5930553853629970116, guid: bf431dd9be7fed240966ca126eae672c, type: 3}
-  movement: {fileID: 404842257091894986, guid: bf431dd9be7fed240966ca126eae672c, type: 3}
+  playerPrefab: {fileID: 8141575335538602300, guid: 8bc53023ba3b1a54c97cb14e6e17ff8d, type: 3}
+  movement: {fileID: 885770225353186792, guid: 8bc53023ba3b1a54c97cb14e6e17ff8d, type: 3}
 --- !u!1 &2011616814
 GameObject:
   m_ObjectHideFlags: 0

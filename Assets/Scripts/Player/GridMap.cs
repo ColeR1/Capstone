@@ -9,6 +9,7 @@ public class GridMap : MonoBehaviour
     public GameObject gridCellPrefab;       // Prefab for the grid cell
     public GameObject mountainPrefab;       // Prefab for the mountain object
     public GameObject newPrefab;          //Prefab for hte forest object
+    public GameObject housePrefab;       //Prefab for a enemy house spanwer
     public GameObject borderBlockPrefab;    // Prefab for the border block
     public GameObject playerPrefab;         // Prefab for the player
     private int gridWidth;
@@ -45,13 +46,17 @@ public class GridMap : MonoBehaviour
             // Instantiate grid cell, mountain, or the new prefab based on a condition
             GameObject cellPrefab;
             float randomValue = Random.value;
-            if (randomValue < 0.1f)
+            if (randomValue < 0.01f)
             {
                 cellPrefab = mountainPrefab;
             }
-            else if (randomValue < 0.2f)
+            else if (randomValue < 0.05f)
             {
                 cellPrefab = newPrefab; // Use the new prefab when randomValue is between 0.1f and 0.2f
+            }
+            else if(randomValue < 0.06f)
+            {
+                cellPrefab = housePrefab;
             }
             else
             {
