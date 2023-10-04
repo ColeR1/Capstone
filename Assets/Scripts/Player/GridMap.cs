@@ -19,8 +19,6 @@ public class GridMap : MonoBehaviour
     public movementtest movement;
 
 
-    private float tileSize = 2.1f; // Size of each grid cell
-
 
  void Start()
     {

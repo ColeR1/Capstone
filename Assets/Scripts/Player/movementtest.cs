@@ -15,11 +15,18 @@ public class movementtest : MonoBehaviour
     private bool isMoving = false; // Flag to check if the player is currently moving
     private bool canMove = true;  // Flag to control player movement
 
-    public static movementtest Instance{set; public get;}
+    public static movementtest Instance{get; private set;}
+
+    private void Awake() {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     void Start()
     {
-        Instance = this;
+        //Instance = this;
         targetPosition = transform.position;
     }
 

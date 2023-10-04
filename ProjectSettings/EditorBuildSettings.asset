@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/different movement testing.unity
     guid: 2c16d30d488033d4586d548eff0f5b9a
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: ae68bb76cb747b04b9b42bbf31d4dee0
   m_configObjects: {}
